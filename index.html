@@ -52,25 +52,31 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Clebsch Gauge Fluid on Particle Flow Maps</h1>
+            <h1 class="title is-1 publication-title">An Adjoint Method for Differentiable Fluid Simulation on Flow Maps</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Zhiqi Li<sup>1</sup></sup></a><!-- <sup>*</sup> -->,</span>
+                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Zhiqi Li*<sup>1</sup></sup></a><!-- <sup>*</sup> -->,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Candong Lin<sup>1</sup></a><!-- <sup>*</sup> -->,</span>
+                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Jinjin He*<sup>1</sup></a><!-- <sup>*</sup> -->,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Duowen Chen<sup>1</sup></a>,</span>
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Barnabás Börcsök<sup>1</sup></a>,</span>
                     <span class="author-block">
-                      <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Xinyi Zhou<sup>1</sup></a>,</span>
+                      <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Taiyuan Zhang<sup>2</sup></a>,</span>
                       <span class="author-block">
-                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Shiying Xiong<sup>2</sup></a>,</span>
+                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Duowen Chen<sup>1</sup></a>,</span>
+                      <span class="author-block">
+                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Tao Du<sup>3</sup></a>,</span>
+                      <span class="author-block">
+                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Ming C. Lin<sup>4</sup></a>,</span>
+                      <span class="author-block">
+                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Greg Turk<sup>1</sup></a>,</span>
                       <span class="author-block">
                         <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Bo Zhu<sup>1</sup></a>,</span>
                       </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block"><sup>1</sup>Georgia Institute of Technology<br><sup>2</sup>Zhejiang University<br> ACM Transactions on Graphics (SIGGRAPH 2025) (Best Paper Award Honorable Mention)</span>
+                    <span class="author-block"><sup>1</sup>Georgia Institute of Technology<br><sup>2</sup>Dartmouth College<br><sup>3</sup>Tsinghua University<br><sup>4</sup>University of Maryland<br> SIGGRAPH Asia 2025</span>
                     <!--<span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
 
@@ -94,6 +100,15 @@
                         <span>arXiv</span>
                       </a>
                     </span>
+                    <span class="link-block">
+                        <a href="http://arxiv.org/abs/2409.06246" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>code</span>
+                      </a>
+                    </span>
                   </div>
                 </div>
         </div>
@@ -109,7 +124,7 @@
     <div class="hero-body">
       <img src="static/images/teaser_1.jpg" alt="MY ALT TEXT"/>
         <h4 class="subtitle has-text-centered">
-          Our Clebsch wave function-based particle flow map can perfectly preserve vortices even at very low grid resolutions with precise convection. We demonstrate that our method is capable of simulating complex vortex interactions and motion under extremely low resolution (#resolution <= 64) (left), handling vortex shedding caused by moving obstacles leading to turbulent smoke (middle), and capturing the vortical structure shedded by the obstacle (right).
+          Demonstration of our differentiable fluid simulation on flow maps using our adjoint solver. Top: A sequence of 2D fluid shape optimizations demonstrating smooth morphing between target silhouettes. Middle: 3D fluid control with multiple keyframes to guide a 3D letter morphing from "G" to "R" to "A" to "P" to "H". Bottom: A vortex dynamics inference task that predicts future flow evolution from a sequence of observed past images.
         </h4>
     </div>
   </div>
@@ -124,7 +139,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We propose a novel gauge fluid solver that evolves Clebsch wave functions on particle flow maps (PFMs). The key insight underlying our work is that particle flow maps exhibit superior performance in transporting point elements—such as Clebsch components—compared to line and surface elements, which were the focus of previous methods relying on impulse and vortex gauge variables for flow maps. Our Clebsch PFM method incorporates three main contributions: a novel gauge transformation enabling accurate transport of wave functions on particle flow maps, an enhanced velocity reconstruction method for coarse grids, and a PFM-based simulation framework designed to better preserve fine-scale flow structures. We validate the Clebsch PFM method through a wide range of benchmark tests and simulation examples, ranging from leapfrogging vortex rings and vortex reconnections to Kelvin–Helmholtz instabilities, demonstrating that our method outperforms its impulse- or vortex-based counterparts on particle flow maps, particularly in preserving and evolving small-scale features.
+            This paper presents a novel adjoint solver for differentiable fluid simulation based on bidirectional flow maps. Our key observation is that the forward fluid solver and its corresponding backward, adjoint solver share the same flow map as the forward simulation. In the forward pass, this map transports fluid impulse variables from the initial frame to the current frame to simulate vortical dynamics. In the backward pass, the same map propagates adjoint variables from the current frame back to the initial frame to compute gradients. This shared long-range map allows the accuracy of gradient computation to benefit directly from improvements in flow map construction. Building on this insight, we introduce a novel adjoint solver that solves the adjoint equations directly on the flow map, enabling long-range and accurate differentiation of incompressible flows without differentiating intermediate numerical steps or storing intermediate variables, as required in conventional adjoint methods. To further improve efficiency, we propose a long-short time-sparse flow map representation for evolving adjoint variables. Our approach has low memory usage, requiring only 6.53GB of data at a resolution of 192^3 while preserving high accuracy in tracking vorticity, enabling new differentiable simulation tasks that require precise identification, prediction, and control of vortex dynamics.
           </p>
         </div>
       </div>
@@ -139,55 +154,85 @@
     <div id="results-carousel" class="carousel results-carousel">
       <div class="item item-video1">
         <video poster="" id="video1" autoplay controls muted loop height="100%">
-          <source src="static/videos/board.mp4"
+          <source src="static/videos/logo.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video2">
         <video poster="" id="video2" autoplay controls muted loop height="100%">
-          <source src="static/videos/bunny.mp4"
+          <source src="static/videos/armadillo.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video3">
         <video poster="" id="video3" autoplay controls muted loop height="100%">
-          <source src="static/videos/eight.mp4"
+          <source src="static/videos/dragon.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video4">
         <video poster="" id="video4" autoplay controls muted loop height="100%">
-          <source src="static/videos/four_link.mp4"
+          <source src="static/videos/GRAPH_3D.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video5">
         <video poster="" id="video5" autoplay controls muted loop height="100%">
-          <source src="static/videos/four2.mp4"
+          <source src="static/videos/GRAPH.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video5">
         <video poster="" id="video5" autoplay controls muted loop height="100%">
-          <source src="static/videos/KT.mp4"
+          <source src="static/videos/leaf.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video5">
         <video poster="" id="video5" autoplay controls muted loop height="100%">
-          <source src="static/videos/leapfrog.mp4"
+          <source src="static/videos/life.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video5">
         <video poster="" id="video5" autoplay controls muted loop height="100%">
-          <source src="static/videos/three_link.mp4"
+          <source src="static/videos/obstacle.mov"
           type="video/mp4">
         </video>
       </div>
       <div class="item item-video5">
         <video poster="" id="video5" autoplay controls muted loop height="100%">
-          <source src="static/videos/two_link.mp4"
+          <source src="static/videos/snake.mov"
+          type="video/mp4">
+        </video>
+      </div>
+            <div class="item item-video5">
+        <video poster="" id="video5" autoplay controls muted loop height="100%">
+          <source src="static/videos/topo1.mov"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="item item-video5">
+        <video poster="" id="video5" autoplay controls muted loop height="100%">
+          <source src="static/videos/topo2.mov"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="item item-video5">
+        <video poster="" id="video5" autoplay controls muted loop height="100%">
+          <source src="static/videos/topo3.mov"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="item item-video5">
+        <video poster="" id="video5" autoplay controls muted loop height="100%">
+          <source src="static/videos/turtle.mov"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="item item-video5">
+        <video poster="" id="video5" autoplay controls muted loop height="100%">
+          <source src="static/videos/vortex.mov"
           type="video/mp4">
         </video>
       </div>
@@ -239,7 +284,7 @@
         <div class="column is-four-fifths">
           <div class="publication-video">
             <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/U0iTO8tfRK0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/C1RrUa53uxU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -256,7 +301,7 @@
 <section class="section">
   <div class="container is-max-desktop content">
       <h2 class="title">Paper</h2>
-      <iframe  src="static/pdfs/SIG_2025__Clebsch_PFM_Upload.pdf" width="100%" height="550">
+      <iframe  src="static/pdfs/view.pdf" width="100%" height="550">
           </iframe>
   </div>
   </section>
@@ -266,16 +311,12 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@inproceedings{li2025clebsch,
-        title = {Clebsch Gauge Fluid on Particle Flow Maps},
-        author = {Li, Zhiqi and Lin, Candong and Chen, Duowen and Zhou, Xinyi and Xiong, Shiying and Zhu, Bo}
-        journal={ACM Transactions on Graphics (TOG)},
-        volume={44},
-        number={4},
-        pages={1--12},
-        year={2025},
-        publisher={ACM New York, NY, USA}
-      }</code></pre>
+      <pre><code>@inproceedings{li2025adjoint,
+    year = {2025},
+    title = {An Adjoint Method for Differentiable Fluid Simulation on Flow Maps},
+    booktitle = {ACM SIGGRAPH Asia 2025 (Conference Track)},
+    author = {Li, Zhiqi and He, Jinjin and Börcsök, Barnabás and Zhang, Taiyuan and Chen, Duowen and Du, Tao and Lin, Ming C. and Turk, Greg and Zhu, Bo}
+  }</code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
